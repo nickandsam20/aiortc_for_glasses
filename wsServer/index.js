@@ -68,11 +68,11 @@ function registerUploader(parsedMsg, ws, sessionId) {
     sdp = parsedMsg.sdp,
     type = parsedMsg.type;
   if (uploaderExist(uploaderId)) {
-    console.log(`uploader ${uploaderId} already exist`);
+    console.log(`[registerUploader]uploader ${uploaderId} already exist`);
     return;
   }
   if (!pythonServerExist(pythonServerId)) {
-    console.log(`python server ${pythonServerId} not exist`);
+    console.log(`[registerUploader]python server ${pythonServerId} not exist`);
     return;
   }
   sessionId2RealId[sessionId] = uploaderId;
@@ -85,18 +85,18 @@ function registerDownloader(parsedMsg, ws, sessionId) {
   let downloaderId = String(parsedMsg.downloaderId),
     uploaderId = String(parsedMsg.connectToUserId);
   if (downloaderExist(downloaderExist)) {
-    console.log(`downloader ${downloaderId} already exist`);
+    console.log(`[registerDownloader]downloader ${downloaderId} already exist`);
     return;
   }
   if (!uploaderExist(uploaderId)) {
-    console.log(`uploader ${uploaderId} not exist`);
+    console.log(`[registerDownloader]uploader ${uploaderId} not exist`);
     return;
   }
   let uploader = uploaders[uploaderId],
     processId = uploader.processId;
 
   if (!processExist(processId)) {
-    console.log(`process not exist`);
+    console.log(`[registerDownloader]process not exist`);
     return;
   }
   let process = streamProcesses[uploader.processId];
@@ -125,24 +125,19 @@ function processExist(processId) {
 }
 function handleSessionClose(sessionId) {
   let id = sessionId2RealId[sessionId];
-  console.log(`deleting id ${id},sessionId ${sessionId}`);
+  console.log(`[handleSessionClose]deleting id ${id},sessionId ${sessionId}`);
   try {
     if (id in servers) {
-      console.log("delete server");
       delete servers[id];
     } else if (id in downloaders) {
-      console.log("delete downloader");
       delete downloaders[id];
     } else if (id in uploaders) {
-      console.log("delete uploader");
       delete uploaders[id];
     } else if (id in streamProcesses) {
-      console.log("delete streamProcesses");
       delete streamProcesses[id];
     }
   } finally {
     delete sessionId2RealId[sessionId];
-    console.log("delete session", sessionId);
   }
 }
 
@@ -170,7 +165,7 @@ wss.on("connection", function connection(ws) {
       case "registerUploaderResponse":
         let uploaderId = data["uploaderId"];
         if (!uploaderExist(uploaderId)) {
-          console.log(`【registerUploaderResponse]uploader not exist`);
+          console.log(`[registerUploaderResponse]uploader not exist`);
           return;
         }
         // console.log(data);
@@ -193,7 +188,7 @@ wss.on("connection", function connection(ws) {
       case "downloaderAns":
         let processId = String(data["processSessionId"]);
         if (!processExist(processId)) {
-          console.log(`process ${processSessionId} not exist`);
+          console.log(`[downloaderAns]process ${processSessionId} not exist`);
           return;
         }
         let process = streamProcesses[processId];
