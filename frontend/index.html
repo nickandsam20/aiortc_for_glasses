@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script src="./index.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+  </head>
+  <body>
+    <div><span>my user id</span> <input type="text" id="userId" /></div>
+    <div><span>to python client id</span> <input type="text" id="pythonServerId" /></div>
+    <div><span>connectToUserId</span> <input type="text" id="connectToUserId" /></div>
+    <button onclick="registerUploader()">registerUploader</button>
+    <button onclick="registerDownloader()">registerDownloader</button>
+    <div id="videoContainer" style="display:none">
+      <div id="remoteVideoFps"></div>
+      <video id="remoteVideo" autoplay></video>
+    </div>
+  </body>
+</html>
