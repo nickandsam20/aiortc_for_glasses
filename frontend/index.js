@@ -47,6 +47,9 @@ function registerUploader() {
   });
   pc.addEventListener("connectionstatechange", (event) => {
     console.log("connectionstatechange,current state is:", pc.connectionState);
+    if (pc.connectionState == "connected") {
+      document.getElementById("showUploaderConnected").style.display = "block";
+    }
   });
   pc.addEventListener("icecandidate", (event) => {
     console.log("onicecandidate", event);
@@ -79,6 +82,7 @@ function registerUploader() {
 
     console.log("finish add local track");
     console.log("start negotiate");
+    setMaxCapability();
     negotiate(pc, "registerUploader", pythonServerId, uploaderId);
   });
 }
@@ -223,8 +227,7 @@ function getFps() {
     stats.forEach((report) => {
       if (report.type == "inbound-rtp" && report.kind == "video") {
         // console.log(report);
-        // console.log(`stream ${streamServerId} fps:${report.framesPerSecond}, jitter:${report.jitter}`);
-
+        // console.log(`fps:${report.framesPerSecond}, jitter:${report.jitter}`);
         let element = document.getElementById(`remoteVideoFps`),
           fps = report.framesPerSecond;
         if (element != null) {

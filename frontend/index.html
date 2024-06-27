@@ -5,10 +5,11 @@
   </head>
   <body>
     <div><span>my user id</span> <input type="text" id="userId" /></div>
-    <div><span>to python client id</span> <input type="text" id="pythonServerId" /></div>
+    <div><span>to python server id</span> <input type="text" id="pythonServerId" /></div>
     <div><span>connectToUserId</span> <input type="text" id="connectToUserId" /></div>
     <button onclick="registerUploader()">registerUploader</button>
     <button onclick="registerDownloader()">registerDownloader</button>
+    <div id="showUploaderConnected" style="display:none">uploader已連線</div>
     <div id="videoContainer" style="display:none">
       <div id="remoteVideoFps"></div>
       <video id="remoteVideo" autoplay></video>
