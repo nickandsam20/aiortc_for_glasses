@@ -27,7 +27,7 @@ class VideoTransformTrack(MediaStreamTrack):
         self.track.stop() 
     async def recv(self):
         frame = await self.track.recv()
-        global uploader,torchModel,modelOn
+
         try:   
             #這邊可以自己對frame加工
             #img0 = frame.to_ndarray(format="bgr24")
@@ -191,4 +191,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     asyncio.run(websocketClient(args.uploaderId))
+
+    #clear 
     print("----------finish stream process----------")
