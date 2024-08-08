@@ -1,3 +1,5 @@
 .venv
+/pythonServer/testenv/
+/pythonServer/testenv2/
 /wsServer/node_modules/
 /frontend/node_modules/
