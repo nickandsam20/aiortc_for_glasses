@@ -235,6 +235,5 @@ function getFps() {
         }
       }
     });
-    resolve();
   });
 }
