@@ -62,7 +62,8 @@ class Uploader(User):
         self.relay=MediaRelay()
     def addVideoTrack(self,track):
         self.originVideoTrack=track
-        self.videoTrack=VideoTransformTrack(track)
+        # self.videoTrack=VideoTransformTrack(track)
+        self.videoTrack = track
     def addAudioTrack(self,track):
         self.audioTrack=track
 
@@ -111,7 +112,7 @@ async def createDownloader(ws,message):
     if uploader is not None : 
         await uploader.blackHole.stop()
         if uploader.videoTrack:
-            pc.addTrack(uploader.relay.subscribe(uploader.videoTrack,False))
+            pc.addTrack(VideoTransformTrack(uploader.relay.subscribe(uploader.videoTrack,False)))
 
     # channel = pc.createDataChannel("chat")
     offer = await pc.createOffer()
