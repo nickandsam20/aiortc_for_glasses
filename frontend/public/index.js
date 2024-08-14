@@ -79,6 +79,8 @@ function registerUploader() {
       console.log("track constraints", track.getConstraints());
       console.log("track setting", track.getSettings());
     });
+    document.getElementById("videoContainerLocal").style.display = "block";
+    document.getElementById("localVideo").srcObject = stream;
 
     console.log("finish add local track");
     console.log("start negotiate");
